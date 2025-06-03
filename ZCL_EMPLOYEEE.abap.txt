@@ -1,0 +1,48 @@
+CLASS zcl_employeee DEFINITION
+  PUBLIC
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    DATA: mv_id    TYPE i,
+          mv_name  TYPE string,
+          mv_email TYPE string.
+
+    METHODS:
+      set_employee_data
+        IMPORTING
+          iv_firstname TYPE string
+          iv_lastname  TYPE string
+          iv_age       TYPE i,
+
+      get_details RETURNING VALUE(rv_text) TYPE string,
+      get_id      RETURNING VALUE(rv_id)   TYPE i,
+      get_name    RETURNING VALUE(rv_name) TYPE string,
+      get_email   RETURNING VALUE(rv_email) TYPE string.
+
+ENDCLASS.
+
+CLASS zcl_employeee IMPLEMENTATION.
+
+  METHOD set_employee_data.
+    mv_id    = iv_age.
+    mv_name  = iv_firstname && ' ' && iv_lastname.
+    mv_email = LOWER( iv_firstname ) && '.' && LOWER( iv_lastname ) && '@example.com'.
+  ENDMETHOD.
+
+  METHOD get_details.
+    rv_text = |ID: { mv_id }, Name: { mv_name }, Email: { mv_email }|.
+  ENDMETHOD.
+
+  METHOD get_id.
+    rv_id = mv_id.
+  ENDMETHOD.
+
+  METHOD get_name.
+    rv_name = mv_name.
+  ENDMETHOD.
+
+  METHOD get_email.
+    rv_email = mv_email.
+  ENDMETHOD.
+
+ENDCLASS.

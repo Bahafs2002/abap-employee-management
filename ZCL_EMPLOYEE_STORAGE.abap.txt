@@ -1,0 +1,39 @@
+CLASS zcl_employee_storage DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+
+    TYPES: BEGIN OF ty_employee,
+             id    TYPE i,
+             name  TYPE string,
+             email TYPE string,
+           END OF ty_employee.
+
+    TYPES: ty_employee_tab TYPE STANDARD TABLE OF ty_employee WITH EMPTY KEY.
+
+    METHODS:
+      add_employee IMPORTING
+        iv_id    TYPE i
+        iv_name  TYPE string
+        iv_email TYPE string,
+
+      get_all_employees RETURNING VALUE(rt_employees) TYPE ty_employee_tab.
+
+  PRIVATE SECTION.
+    DATA: mt_employees TYPE ty_employee_tab.
+
+ENDCLASS.
+
+CLASS zcl_employee_storage IMPLEMENTATION.
+
+  METHOD add_employee.
+    APPEND VALUE #( id = iv_id name = iv_name email = iv_email ) TO mt_employees.
+  ENDMETHOD.
+
+  METHOD get_all_employees.
+    rt_employees = mt_employees.
+  ENDMETHOD.
+
+ENDCLASS.

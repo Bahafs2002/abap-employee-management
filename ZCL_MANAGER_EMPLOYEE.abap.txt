@@ -1,0 +1,43 @@
+CLASS zcl_manager_employee DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_employeee
+  FINAL
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    INTERFACES zif_employee_actionsss.
+
+    METHODS:
+      set_employee_data
+        IMPORTING
+          iv_firstname TYPE string
+          iv_lastname  TYPE string
+          iv_age       TYPE i.
+    
+  PRIVATE SECTION.
+    DATA: mv_firstname TYPE string,
+          mv_lastname  TYPE string,
+          mv_age       TYPE i.
+
+ENDCLASS.
+
+CLASS zcl_manager_employee IMPLEMENTATION.
+
+  METHOD set_employee_data.
+    mv_id    = iv_age.
+    mv_name  = |{ iv_firstname } { iv_lastname }|.
+    mv_email = |{ LOWER( iv_firstname ) }.{ LOWER( iv_lastname ) }@example.com|.
+  ENDMETHOD.
+
+  METHOD zif_employee_actionsss~get_employee_type.
+    rv_type = 'Manager'.
+  ENDMETHOD.
+
+  METHOD zif_employee_actionsss~display_details.
+    DATA(lv_text) = get_details( ).
+    rv_text = |Employee Type: Manager\n{ lv_text }|.
+  ENDMETHOD.
+
+
+
+ENDCLASS.

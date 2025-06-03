@@ -1,0 +1,7 @@
+INTERFACE zif_employee_actionsss PUBLIC.
+
+  METHODS:
+    get_employee_type RETURNING VALUE(rv_type) TYPE string,
+    display_details   RETURNING VALUE(rv_text) TYPE string.
+
+ENDINTERFACE.

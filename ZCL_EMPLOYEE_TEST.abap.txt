@@ -1,0 +1,50 @@
+CLASS zcl_employee_tests DEFINITION
+  PUBLIC
+  FINAL
+  FOR TESTING
+  DURATION SHORT
+  RISK LEVEL HARMLESS.
+
+  PUBLIC SECTION.
+    METHODS:
+      test_get_details FOR TESTING,
+      test_set_employee_data FOR TESTING.
+ENDCLASS.
+
+CLASS zcl_employee_tests IMPLEMENTATION.
+
+  METHOD test_get_details.
+    " تحضير البيانات
+    DATA(lo_emp) = NEW zcl_employeee( ).
+    lo_emp->set_employee_data(
+      iv_firstname = 'Ali'
+      iv_lastname  = 'Saleh'
+      iv_age       = 25 ).
+
+    " تنفيذ الفنكشن
+    DATA(lv_details) = lo_emp->get_details( ).
+
+    " تحقق من المخرجات
+    cl_aunit_assert=>assert_contains(
+      act = lv_details
+      sub = 'Ali Saleh'
+    ).
+  ENDMETHOD.
+
+  METHOD test_set_employee_data.
+    " تأكد من أن القيم تم تعيينها بشكل صحيح
+    DATA(lo_emp) = NEW zcl_employeee( ).
+    lo_emp->set_employee_data(
+      iv_firstname = 'Laila'
+      iv_lastname  = 'Ahmad'
+      iv_age       = 29 ).
+
+    " احصل على الناتج
+    DATA(lv_details) = lo_emp->get_details( ).
+
+    " تحقق من القيم
+    cl_aunit_assert=>assert_contains( act = lv_details sub = 'Laila Ahmad' ).
+    cl_aunit_assert=>assert_contains( act = lv_details sub = '29' ).
+  ENDMETHOD.
+
+ENDCLASS.

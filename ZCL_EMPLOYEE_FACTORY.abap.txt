@@ -1,0 +1,23 @@
+CLASS zcl_employee_factory DEFINITION
+  PUBLIC
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    CLASS-METHODS create_employee
+      IMPORTING iv_type TYPE string
+      RETURNING VALUE(ro_employee) TYPE REF TO zif_employee_actionsss.
+
+ENDCLASS.
+
+CLASS zcl_employee_factory IMPLEMENTATION.
+
+  METHOD create_employee.
+    CASE iv_type.
+      WHEN 'manager'.
+        ro_employee = NEW zcl_manager_employee( ).
+      WHEN OTHERS.
+        ro_employee = NEW zcl_employeee( ).
+    ENDCASE.
+  ENDMETHOD.
+
+ENDCLASS.

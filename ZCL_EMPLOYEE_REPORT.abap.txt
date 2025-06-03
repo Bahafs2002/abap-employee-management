@@ -1,0 +1,21 @@
+CLASS zcl_employee_report DEFINITION
+  PUBLIC
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    METHODS:
+      generate_report
+        IMPORTING
+          iv_id    TYPE i
+          iv_name  TYPE string
+          iv_email TYPE string
+        RETURNING VALUE(rv_text) TYPE string.
+ENDCLASS.
+
+CLASS zcl_employee_report IMPLEMENTATION.
+
+  METHOD generate_report.
+    rv_text = |Employee Report for { iv_name } (ID: { iv_id }) - Email: { iv_email }|.
+  ENDMETHOD.
+
+ENDCLASS.

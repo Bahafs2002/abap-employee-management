@@ -1,0 +1,35 @@
+CLASS zcl_employee_run DEFINITION
+  PUBLIC
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    METHODS run.
+ENDCLASS.
+
+CLASS zcl_employee_run IMPLEMENTATION.
+
+  METHOD run.
+    DATA(lo_manager) = NEW zcl_manager_employee( ).
+    lo_manager->set_employee_data(
+      iv_firstname = 'Sara'
+      iv_lastname  = 'Omar'
+      iv_age       = 34 ).
+
+    " تقرير
+    DATA(lo_report) = NEW zcl_employee_report( ).
+    DATA(lv_output) = lo_report->generate_report(
+      iv_id    = lo_manager->get_id( )
+      iv_name  = lo_manager->get_name( )
+      iv_email = lo_manager->get_email( ) ).
+
+    out->write_text( lv_output ).
+
+    " تخزين
+    DATA(lo_storage) = NEW zcl_employee_storage( ).
+    lo_storage->add_employee(
+      iv_id    = lo_manager->get_id( )
+      iv_name  = lo_manager->get_name( )
+      iv_email = lo_manager->get_email( ) ).
+  ENDMETHOD.
+
+ENDCLASS.
