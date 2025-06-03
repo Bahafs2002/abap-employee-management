@@ -1,4 +1,6 @@
 # 💼 ABAP OO Employee Management System
+![ABAP OO Employee Management](cover.png)
+
 
 This is a complete object-oriented **ABAP training project**, designed to demonstrate core concepts in ABAP such as:
 
